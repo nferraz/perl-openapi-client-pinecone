@@ -2,6 +2,10 @@ use 5.006;
 use strict;
 use warnings;
 use ExtUtils::MakeMaker;
+use File::ShareDir::Install;
+
+# install configuration files from 'share' directory
+install_share 'share';
 
 my %WriteMakefileArgs = (
     NAME             => 'OpenAPI::Client::Pinecone',
@@ -11,7 +15,8 @@ my %WriteMakefileArgs = (
     LICENSE          => 'artistic_2',
     MIN_PERL_VERSION => '5.006',
     CONFIGURE_REQUIRES => {
-        'ExtUtils::MakeMaker' => '0',
+        'ExtUtils::MakeMaker'     => '0',
+        'File::ShareDir::Install' => '0',
     },
     TEST_REQUIRES => {
         'Test::More' => '0',
@@ -44,3 +49,8 @@ delete $WriteMakefileArgs{LICENSE}
     unless eval { ExtUtils::MakeMaker->VERSION('6.31'); 1 };
 
 WriteMakefile(%WriteMakefileArgs);
+
+# install configuration files from 'share' directory
+
+package MY;
+use File::ShareDir::Install qw( postamble );

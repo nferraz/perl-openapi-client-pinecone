@@ -30,6 +30,7 @@ sub new {
             1;
         } or do {
             # Fallback to local share directory during development
+            warn $@;
             $specification = catfile( 'share', 'pinecone.yaml' );
         };
     }

@@ -15,6 +15,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - run: sudo apt-get update -qq && sudo apt-get install -qq gcc libc-dev curl make cpanminus
+    - run: cpanm --sudo --install File::ShareDir::Install # required by configure
     - run: cpanm --sudo --notest --installdeps .
     - run: perl Makefile.PL
     - run: make

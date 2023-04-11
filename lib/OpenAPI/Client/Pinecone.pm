@@ -10,7 +10,7 @@ use File::Spec::Functions qw(catfile);
 use Mojo::Base 'OpenAPI::Client';
 use Mojo::URL;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub new {
     my ( $class, $specification ) = ( shift, shift );
@@ -57,10 +57,10 @@ sub new {
     my %snake_case_alias = (
         DescribeIndexStats => 'describe_index_stats',
         Query              => 'query',
-        Delete             => 'delete_vectors',
-        Fetch              => 'fetch_vectors',
-        Update             => 'update_vectors',
-        Upsert             => 'upsert_vectors',
+        Delete             => 'delete_vector',
+        Fetch              => 'fetch_vector',
+        Update             => 'update_vector',
+        Upsert             => 'upsert_vector',
     );
 
     for my $camel_case_method ( keys %snake_case_alias ) {
@@ -86,15 +86,16 @@ OpenAPI::Client::Pinecone - A client for the Pinecone API
 
   my $client = OpenAPI::Client::Pinecone->new(); # see ENVIRONMENT VARIABLES
 
-  my $transaction = $client->list_collections();
-  my $response_data = decode_json($transaction->res->body);
+  my $tx = $client->list_collections();
+
+  my $response_data = $tx->res->json;
 
   #print Dumper($response_data);
 
 =head1 DESCRIPTION
 
 OpenAPI::Client::Pinecone is a client for the Pinecone API built on
-top of OpenAPI::Client. This module automatically handles the API
+top of L<OpenAPI::Client>. This module automatically handles the API
 key authentication and sets the base URL according to the provided
 environment.
 
@@ -114,6 +115,9 @@ Create a new Pinecone API client. The following options can be provided:
 
 The path to the OpenAPI specification file (YAML). Defaults to the
 "pinecone.yaml" file in the distribution's "share" directory.
+
+Note: this is a reverse engineered specification, available
+L<here|https://github.com/sigpwned/pinecone-openapi-spec>.
 
 =item * C<%options>
 
@@ -184,25 +188,25 @@ Query. The `Query` operation searches a namespace, using a query
 vector. It retrieves the ids of the most similar items in a namespace,
 along with their similarity scores.
 
-=head3 delete_vectors
+=head3 delete_vector
 
 Delete. The `Delete` operation deletes vectors, by id, from a single
 namespace. You can delete items by their id, from a single namespace.
 
-=head3 fetch_vectors
+=head3 fetch_vector
 
 Fetch. The `Fetch` operation looks up and returns vectors, by ID,
 from a single namespace. The returned vectors include the vector data
 and/or metadata.
 
-=head3 update_vectors
+=head3 update_vector
 
 Update. The `Update` operation updates vector in a namespace. If a value
 is included, it will overwrite the previous value. If a set_metadata
 is included, the values of the fields specified in it will be added or
 overwrite the previous value.
 
-=head3 upsert_vectors
+=head3 upsert_vector
 
 Upsert. The Upsert operation writes vectors into a namespace. If a
 new value is upserted for an existing vector id, it will overwrite the

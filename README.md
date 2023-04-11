@@ -8,15 +8,16 @@ OpenAPI::Client::Pinecone - A client for the Pinecone API
 
     my $client = OpenAPI::Client::Pinecone->new(); # see ENVIRONMENT VARIABLES
 
-    my $transaction = $client->list_collections();
-    my $response_data = decode_json($transaction->res->body);
+    my $tx = $client->list_collections();
+
+    my $response_data = $tx->res->json;
 
     #print Dumper($response_data);
 
 # DESCRIPTION
 
 OpenAPI::Client::Pinecone is a client for the Pinecone API built on
-top of OpenAPI::Client. This module automatically handles the API
+top of [OpenAPI::Client](https://metacpan.org/pod/OpenAPI%3A%3AClient). This module automatically handles the API
 key authentication and sets the base URL according to the provided
 environment.
 
@@ -34,6 +35,9 @@ Create a new Pinecone API client. The following options can be provided:
 
     The path to the OpenAPI specification file (YAML). Defaults to the
     "pinecone.yaml" file in the distribution's "share" directory.
+
+    Note: this is a reverse engineered specification, available
+    [here](https://github.com/sigpwned/pinecone-openapi-spec).
 
 - `%options`
     - base\_url
@@ -97,25 +101,25 @@ Query. The \`Query\` operation searches a namespace, using a query
 vector. It retrieves the ids of the most similar items in a namespace,
 along with their similarity scores.
 
-### delete\_vectors
+### delete\_vector
 
 Delete. The \`Delete\` operation deletes vectors, by id, from a single
 namespace. You can delete items by their id, from a single namespace.
 
-### fetch\_vectors
+### fetch\_vector
 
 Fetch. The \`Fetch\` operation looks up and returns vectors, by ID,
 from a single namespace. The returned vectors include the vector data
 and/or metadata.
 
-### update\_vectors
+### update\_vector
 
 Update. The \`Update\` operation updates vector in a namespace. If a value
 is included, it will overwrite the previous value. If a set\_metadata
 is included, the values of the fields specified in it will be added or
 overwrite the previous value.
 
-### upsert\_vectors
+### upsert\_vector
 
 Upsert. The Upsert operation writes vectors into a namespace. If a
 new value is upserted for an existing vector id, it will overwrite the

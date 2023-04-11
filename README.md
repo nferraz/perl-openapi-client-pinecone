@@ -94,13 +94,13 @@ namespace and the number of dimensions.
 ### query
 
 Query. The \`Query\` operation searches a namespace, using a query
-vector. It retrieves the ids of the most similar head3s in a namespace,
+vector. It retrieves the ids of the most similar items in a namespace,
 along with their similarity scores.
 
 ### delete\_vectors
 
 Delete. The \`Delete\` operation deletes vectors, by id, from a single
-namespace. You can delete head3s by their id, from a single namespace.
+namespace. You can delete items by their id, from a single namespace.
 
 ### fetch\_vectors
 
